@@ -32,6 +32,14 @@ public class RedirectController {
 		return "redirect:/redirect/{account}";
 	}
 
+	/*
+	 * Error: RedirectController.java:[38,117] [argument.type.incompatible] incompatible types in argument.
+     * found   : @Initialized @Nullable String
+     * required: @Initialized @NonNull Object
+     *
+     * The variable date which is converted by the nullable method in object conversionService
+	 */
+	@SuppressWarnings("nullness")
 	@GetMapping("/uriComponentsBuilder")
 	public String uriComponentsBuilder() {
 		String date = this.conversionService.convert(new LocalDate(2011, 12, 31), String.class);

@@ -1,5 +1,16 @@
 package org.springframework.samples.mvc.data;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.DefaultQualifier;
+
+/*
+ * Error: JavaBean.java:[3,8] [initialization.fields.uninitialized] the constructor does not initialize fields:
+ * param1, param2, param3
+ *
+ * Once a new JavaBean() has been initialized, it would always have its fields set to be null and these fields are
+ * not initialised in this class
+ */
+@DefaultQualifier(Nullable.class)
 public class JavaBean {
 
 	private String param1;

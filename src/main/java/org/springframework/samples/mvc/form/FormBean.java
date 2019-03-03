@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.framework.qual.DefaultQualifier;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -14,11 +16,19 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.format.annotation.NumberFormat.Style;
 import org.springframework.samples.mvc.convert.MaskFormat;
 
+/*
+ * Error: FormBean.java:[17,8] [initialization.fields.uninitialized] the constructor does not initialize fields:
+ * name, birthDate, phone, currency, percent, inquiry, inquiryDetails, additionalInfo
+ *
+ * Once a new FormBean() has been initialized, it would always have its fields set to be null and some fields in this
+ * class have already to be ensured to be non-null by the annotations
+ */
+@DefaultQualifier(Nullable.class)
 public class FormBean {
-	
+
 	@NotEmpty
 	private String name;
-	
+
 	@Min(21)
 	private int age;
 
@@ -34,13 +44,13 @@ public class FormBean {
 
 	@NumberFormat(style=Style.PERCENT)
 	private BigDecimal percent;
-	
+
 	private InquiryType inquiry;
-	
+
 	private String inquiryDetails;
-	
+
 	private boolean subscribeNewsletter;
-	
+
 	private Map<String, String> additionalInfo;
 
     public String getName() {
@@ -123,6 +133,19 @@ public class FormBean {
 		this.additionalInfo = additionalInfo;
 	}
 
+	/*
+	 * Error: FormBean.java:[136,16] [override.return.invalid] Incompatible return type.
+	 * Method
+     * @Initialized @Nullable String toString(@Initialized @Nullable FormBean this) in org.springframework.samples.mvc.form.FormBean
+     * cannot override
+     * @Initialized @NonNull String toString(@Initialized @NonNull Object this) in java.lang.Object
+     * found   : @Initialized @Nullable String
+     * required: @Initialized @NonNull String
+     *
+     * Warnings for possible nullness of variables in toString() have been suppressed, because they are already
+	 * ensured to be non-null by if statement.
+	 */
+	@SuppressWarnings("nullness")
 	public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("properties name=");

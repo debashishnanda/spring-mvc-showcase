@@ -38,6 +38,18 @@ public class FormController {
 	public void form() {
 	}
 
+	/*
+	 * Error 1: FormController.java:[46,32] [return.type.incompatible] incompatible types in return.
+     * type of expression: null
+     * method return type: @Initialized @NonNull String
+     *
+     * Error 2: FormController.java:[55,32] [return.type.incompatible] incompatible types in return.
+     * type of expression: null
+     * method return type: @Initialized @NonNull String
+     *
+     * The return type could be null if there are some errors or control the method to be continued
+	 */
+	@SuppressWarnings("nullness")
 	@PostMapping
 	public String processSubmit(@Valid FormBean formBean, BindingResult result, 
 								@ModelAttribute("ajaxRequest") boolean ajaxRequest, 

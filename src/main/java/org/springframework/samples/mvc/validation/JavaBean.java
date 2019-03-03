@@ -9,6 +9,14 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+/*
+ * Error: JavaBean.java:[12,8] [initialization.fields.uninitialized] the constructor does not initialize fields:
+ * number, date
+ *
+ * Warnings of the possible nullness of this class have been suppressed because of fields in this class have
+ * already been ensured to be non-null by the @NotNull annotation and are not not initialised in this class
+ */
+@SuppressWarnings("nullness")
 public class JavaBean {
 	
 	@NotNull
